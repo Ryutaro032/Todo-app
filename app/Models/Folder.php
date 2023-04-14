@@ -9,7 +9,11 @@ use Illuminate\Support\Facades\DB;
 class Folder extends Model
 {
     public function getFolder(){
-        $folders = DB::table('folders')->get();
+        $folders = Folder::all();
         return $folders;
+    }
+    public function tasks()
+    {
+        return $this->hasMany('App\Models\Task');
     }
 }
