@@ -34,6 +34,13 @@ return [
     */
 
     'connections' => [
+        //追加部分
+        'sqlite_testing' => [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+        ],
+    
 
         'sqlite' => [
             'driver' => 'sqlite',

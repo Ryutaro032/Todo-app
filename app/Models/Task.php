@@ -9,6 +9,8 @@ use Carbon\Carbon;
 
 class Task extends Model
 {
+    protected $fillable = ['title'];
+    
     public function getTask(){
         $tasks = Task::all();
         return $tasks;
