@@ -20,7 +20,12 @@ Route::get('/', function () {
 });
 
 Route::get('/folders/{id}/tasks',  [TaskController::class, 'index'])->name('tasks.index');
+//フォルダ作成機能
 Route::get('/folders/create', [FolderController::class, 'showCreate'])->name('folders.create');
 Route::post('/folders/create', [FolderController::class, 'create']);
+//タスク作成機能
 Route::get('/folders/{id}/tasks/create', [TaskController::class, 'showCreate'])->name('tasks.create');
 Route::post('/folders/{id}/tasks/create', [TaskController::class, 'create']);
+//タスク編集機能
+Route::get('/folders/{id}/tasks/{task_id}/edit', [TaskController::class, 'showEditForm'])->name('tasks.edit');
+Route::post('/folders/{id}/tasks/{task_id}/edit', [TaskController::class, 'edit']);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateTask;
+use App\Http\Requests\EditTask;
 use App\Models\Folder;
 use App\Models\Task;
 
@@ -18,9 +19,9 @@ class TaskController extends Controller
         $tasks = $currentFolder->tasks()->get();
 
         return view('tasks/index', [
-            'folders' => $folders,
+            'folders'           => $folders,
             'current_folder_id' => $id,
-            'tasks' => $tasks,
+            'tasks'             => $tasks,
         ]);
     }
 
@@ -32,7 +33,7 @@ class TaskController extends Controller
         $current_folder = Folder::find($id);
 
         $task = new Task();
-        $task->title = $req->title;
+        $task->title    = $req->title;
         $task->due_date = $req->due_date;
 
         $current_folder->tasks()->save($task);
@@ -40,5 +41,23 @@ class TaskController extends Controller
         return redirect()->route('tasks.index',[
             'id' => $current_folder->id,
         ]);
+    }
+
+    public function showEditForm($id, $task_id){
+        $task = Task::find($task_id);
+
+        return view('tasks/edit',['task' => $task]);
+    }
+
+    public function edit($id, $task_id, EditTask $req){
+        //リクエストされた ID でタスクデータを取得します。これが編集対象となります。
+        $task = Task::find($task_id);
+
+        $task->title    = $req->title;
+        $task->status   = $req->status;
+        $task->due_date = $req->due_date;
+        $task->save();
+
+        return redirect()->route('tasks.index',['id' => $task->folder_id]);
     }
 }
