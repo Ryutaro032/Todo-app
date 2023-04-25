@@ -7,12 +7,14 @@ use App\Http\Requests\CreateTask;
 use App\Http\Requests\EditTask;
 use App\Models\Folder;
 use App\Models\Task;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
     public function index($id){
         $model   = new Folder();
         $folders = $model->getFolder();
+        $folders = Auth::user()->folders()->get();
 
         $currentFolder = $folders->find($id);
         // 選ばれたフォルダに紐づくタスクを取得する

@@ -5,12 +5,18 @@
     <div class="container">
         <div class="row">
             <div class="col col-md-4">
-                <nav class="panel">
+                <nav class="panel panel-default">
                     <div class="panel-heading">フォルダ</div>
                     <div class="panel-body">
-                        <a href="{{ route('folders.create') }}" class="btn">
-                            フォルダを追加する
-                        </a>
+                        <form action="post">
+                        @csrf
+                            <a href="{{ route('folders.create') }}">
+                                <button type="button" class="btn btn-primary">フォルダを追加する</button>
+                            </a>
+                            <a href="#">
+                                <button type="button" class="btn btn-danger">フォルダを削除する</button>
+                            </a>
+                        </form>
                     </div>
                     <div class="list-group">
                         @foreach($folders as $folder)
@@ -22,6 +28,8 @@
                         @endforeach
                     </div>
                 </nav>
+            </div>
+            <div class="col">
                 <div class="column col-md-8">
                     <!-- タスク表示 -->
                     <div class="panel panel-default">
@@ -53,6 +61,12 @@
                                     <td>
                                         <a href="{{ route('tasks.edit', ['id' => $task->folder_id, 'task_id' => $task->id]) }}">編集</a>
                                     </td>
+                                   <form action="post">
+                                   @csrf
+                                        <td>
+                                            <a href="#">削除</a>
+                                        </td>
+                                   </form>
                                 </tr>
                                 @endforeach
                             </tbody>
